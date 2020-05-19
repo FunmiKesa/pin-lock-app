@@ -1,0 +1,17 @@
+{
+  "name": "pin-lock-app",
+  "displayName": "pin-lock-app",
+  "expo": {
+    "name": "pin-lock-app",
+    "slug": "pin-lock-app",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
