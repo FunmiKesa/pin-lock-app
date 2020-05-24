@@ -1,36 +1,101 @@
-import * as React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import * as React from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
 
-const instructions = Platform.select({
-  ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
-  android: `Double tap R on your keyboard to reload,\nShake or press menu button for dev menu`,
-});
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      showPinLock: false,
+      PINCodeStatus: "choose",
+    };
+  }
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Welcome to React Native!</Text>
-      <Text style={styles.instructions}>To get started, edit App.js</Text>
-      <Text style={styles.instructions}>{instructions}</Text>
-    </View>
-  );
+  _showChoosePinLock = () => {
+    
+  };
+
+  _showEnterPinLock = async () => {
+    
+  };
+
+  _clearPin = async () => {
+   
+  };
+
+  
+
+  _finishProcess = async () => {
+   
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        {!this.state.showPinLock && (
+          <View>
+            <View>
+              <Text style={styles.title}><Text style={styles.bold}>Welcome to React Native Tutorial!</Text>{
+                `\n\nIn this tutorial, we will use buttons to show how to use the\n`}
+                <Text style={styles.bold}>@haskkor/react-native-pincode</Text>
+                {`\npackage.`}
+              </Text>
+            </View>
+            <View style={styles.button}>
+              <Text style={styles.title}>
+                Click on this button to set your PIN.
+              </Text>
+              <Button
+                onPress={() => this._showChoosePinLock()}
+                title="Set Pin"
+              />
+            </View>
+            <View style={styles.seperator} />
+            <View style={styles.button}>
+            <Text style={styles.title}>
+                Click on this button to enter your PIN.
+              </Text>
+              <Button
+                onPress={() => this._showEnterPinLock()}
+                title="Enter Pin"
+              />
+            </View>
+            <View style={styles.seperator} />
+            <View style={styles.button}>
+            <Text style={styles.title}>
+                Click on this button to clear your PIN.
+              </Text>
+              <Button onPress={() => this._clearPin()} title="Clear Pin" />
+            </View>
+          </View>
+        )}
+      </View>
+    );
+  }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: "#F5FCFF",
   },
-  welcome: {
+  title: {
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     margin: 10,
+    marginTop: 20,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  button: {
+    marginBottom: 10,
+    padding: 10,
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
+  seperator: {
+    margin: 10,
+    marginVertical: 8,
+    borderBottomColor: "#737373",
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });
+
+export default App;
