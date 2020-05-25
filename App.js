@@ -1,5 +1,10 @@
 import * as React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import PINCode, {
+  hasUserSetPinCode,
+  resetPinCodeInternalStates,
+  deleteUserPinCode,
+} from "@haskkor/react-native-pincode";
 
 class App extends React.Component {
   constructor() {
@@ -11,21 +16,52 @@ class App extends React.Component {
   }
 
   _showChoosePinLock = () => {
-    
+    this.setState({ PINCodeStatus: "choose", showPinLock: true });
   };
 
   _showEnterPinLock = async () => {
-    
+    const hasPin = await hasUserSetPinCode();
+    if (hasPin) {
+      this.setState({ PINCodeStatus: "enter", showPinLock: true });
+    } else {
+      Alert.alert(null, "You have not set your pin.", [
+        {
+          title: "Ok",
+          onPress: () => {
+            // do nothing
+          },
+        },
+      ]);
+    }
   };
 
   _clearPin = async () => {
-   
+    await deleteUserPinCode();
+    await resetPinCodeInternalStates();
+    Alert.alert(null, "You have cleared your pin.", [
+      {
+        title: "Ok",
+        onPress: () => {
+          // do nothing
+        },
+      },
+    ]);
   };
-
   
 
   _finishProcess = async () => {
-   
+    const hasPin = await hasUserSetPinCode();
+    if (hasPin) {
+      Alert.alert(null, "You have successfully set/entered your pin.", [
+        {
+          title: "Ok",
+          onPress: () => {
+            // do nothing
+          },
+        },
+      ]);
+      this.setState({ showPinLock: false });
+    }
   };
 
   render() {
@@ -67,6 +103,13 @@ class App extends React.Component {
               <Button onPress={() => this._clearPin()} title="Clear Pin" />
             </View>
           </View>
+        )}
+        {this.state.showPinLock && (
+          <PINCode
+            status={this.state.PINCodeStatus}
+            touchIDDisabled={true}
+            finishProcess={() => this._finishProcess()}
+          />
         )}
       </View>
     );
